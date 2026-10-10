@@ -90,9 +90,9 @@ Se selecciona **`finiteautomata/beto-sentiment-analysis` (BETO Sentiment)** como
 - *Mitigación:* Implementación de cuantización a 8 bits (`bitsandbytes`) o exportación del modelo al formato ONNX Runtime.
 
 ## <a name="instalacion"></a>💻 Instrucciones de Uso e Instalación
-### 1. Clonar el repositorio ```bash git clone https\://github.com/tu-usuario/tu-repositorio.git cd tu-repositorio ```  
-### 2. Instalación de dependencias ```bash pip install \-r requirements.txt ```  
-### 3. Ejecución en Google Colab  
+#### 1. Clonar el repositorio ```bash git clone https\://github.com/tu-usuario/tu-repositorio.git cd tu-repositorio ```  
+#### 2. Instalación de dependencias ```bash pip install \-r requirements.txt ```  
+#### 3. Ejecución en Google Colab  
 1. Abrir el notebook `notebooks/Actividad4.ipynb` en Google Colab.  
 2. Configurar la GPU T4 (`Entorno de ejecución > Cambiar tipo de entorno de ejecución > GPU T4`).  
 3. Ejecutar las celdas secuencialmente. Se incluye la semilla `SEED = 42` para asegurar reproducibilidad.
@@ -102,5 +102,5 @@ Se selecciona **`finiteautomata/beto-sentiment-analysis` (BETO Sentiment)** como
 .  
 ├── data/              		# Dataset de kagglehub  
 ├── notebooks/         		# Actividad4.ipynb (Notebook ejecutable en Google Colab)  
-├── README.md          	 # Documentación técnica general del proyecto
+├── README.md          	    # Documentación técnica general del proyecto
 └── requirements.txt   		# Lista de dependencias del entorno Python  
