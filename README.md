@@ -54,10 +54,6 @@ Resultados obtenidos de la ejecución en Google Colab con aceleración GPU Tesla
 | **Latencia / Muestra (ms)** | 28.78 ms | **8.99 ms** | 21.46 ms |
 | **Desviación Estándar Latencia (ms)** | 1.05 ms | **0.54 ms** | 0.08 ms |
 
-![][image1]  
-![][image2]
-
-![][image3]![][image4]![][image5]
 
 ## <a name="trade-offs"></a>⚡ Análisis de Trade-Offs  
 Eficiencia frente a Precisión :  
@@ -76,7 +72,7 @@ Eficiencia frente a Precisión :
 El umbral objetivo es del **80.00% de Accuracy**.   
 El modelo preentrenado líder (**BETO Sentiment**) alcanzó un **78.33%**, a $1.67%$ del objetivo.   
 ### Decisión Técnica   
-**Fase de Despliegue Inicial (Ajuste Mínimo): **ajustes mínimos** a través de la re-calibración de los umbrales de probabilidad (eliminando la asignación estricta a la clase neutral `NEU`), permitiendo superar el umbral del 80% sin incurrir en costos computacionales de reentrenamiento.  
+**Fase de Despliegue Inicial (Ajuste Mínimo):** ajustes mínimos a través de la re-calibración de los umbrales de probabilidad (eliminando la asignación estricta a la clase neutral `NEU`), permitiendo superar el umbral del 80% sin incurrir en costos computacionales de reentrenamiento.  
 **Fase Secundaria (Fine-Tuning):** Si se requiere adaptar el modelo a un léxico altamente especializado, se justifica la ejecución de Fine-Tuning mediante técnicas eficientes como PEFT/LoRA.   
 ### Modelo Recomendado  
 Se selecciona **`finiteautomata/beto-sentiment-analysis` (BETO Sentiment)** como el modelo principal del prototipo debido a su superioridad en precisión, calidad predictiva y alineación con el idioma español.
