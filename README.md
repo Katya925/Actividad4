@@ -5,12 +5,12 @@
 - [📖 Descripción del Caso de Uso](#caso-de-uso)
 - [🛠️ Criterios Técnicos y Prácticos de Selección](#criterios-seleccion)
 - [📊 Origen y Estructura del Dataset](#dataset)
-- [📈 Tabla Comparativa de Modelos y Resultados](#tabla-comparativa-de-modelos-y-resultados)
-- [⚡ Análisis de Trade-Offs: Eficiencia frente a Precisión](#análisis-de-trade-offs-eficiencia-frente-a-precisión)
-- [💡 Decisiones de Ajuste Mínimo vs. Fine-Tuning y Justificación Final](#decisiones-de-ajuste-mínimo-vs-fine-tuning-y-justificación-final)
-- [⚠️ Umbrales, Riesgos y Plan de Mitigación](#umbrales-riesgos-y-plan-de-mitigación)
-- [📂 Estructura del Repositorio](#estructura-del-repositorio)
-- [💻 Instrucciones de Uso e Instalación](#instrucciones-de-uso-e-instalación)
+- [📈 Tabla Comparativa de Modelos y Resultados](#tabla-resultados)
+- [⚡ Análisis de Trade-Offs: Eficiencia frente a Precisión](#trade-offs)
+- [💡 Decisiones de Ajuste Mínimo vs. Fine-Tuning y Justificación Final](#ajuste-minimo)
+- [⚠️ Umbrales, Riesgos y Plan de Mitigación](#riesgos)
+- [📂 Estructura del Repositorio](#estructura)
+- [💻 Instrucciones de Uso e Instalación](#instalacion)
 
 ## <a name="caso-de-uso"></a>📖 Descripción del Caso de Uso
 El objetivo de este proyecto es analizar, seleccionar e implementar un modelo de Inteligencia Artificial capaz de realizar la clasificación automática de sentimientos de un conjunto de reseñas de usuarios en español. El sistema procesa comentarios en lenguaje natural para asignarlos en las categorías (**POS**: Positivo, **NEG**: Negativo, **NEU**: Neutral). 
@@ -29,7 +29,7 @@ Para la evaluación se consideraron los siguientes criterios:
 \`), espacios redundantes y registros duplicados. \- \`sentiment\` / \`label\` (\*string\*): Etiqueta categórica de polaridad normalizada a \`POS\` (Positivo) y \`NEG\` (Negativo).   
 \- \*\*Muestra de Evaluación:\*\* Se extrajo una muestra estratificada de $N=300$ registros válidos ($151POS/149NEG$), empleando una semilla fija (\`SEED \= 42\`) para garantizar reproducibilidad exacta.
 
-## 📈 Tabla Comparativa de Modelos y Resultados  
+## <a name="tabla-resultados"></a>📈 Tabla Comparativa de Modelos y Resultados  
 Resultados obtenidos de la ejecución en Google Colab con aceleración GPU Tesla T4:
 
 | Criterio / Modelo | BETO Sentiment | RoBERTuito | Multilingual BERT   |
@@ -50,7 +50,7 @@ Resultados obtenidos de la ejecución en Google Colab con aceleración GPU Tesla
 
 ![][image3]![][image4]![][image5]
 
-## ⚡ Análisis de Trade-Offs  
+## <a name="trade-offs"></a>⚡ Análisis de Trade-Offs  
 Eficiencia frente a Precisión :  
 1\. \*\*BETO Sentiment (\`finiteautomata\`):\*\*   
 \- \*\*Precisión:\*\* Presenta el desempeño técnico más alto del experimento, con un \*\*Accuracy del 78.33%\*\* y un \*\*F1-Score Macro de 0.7554\*\*.   
@@ -62,7 +62,7 @@ Eficiencia frente a Precisión :
 \- \*\*Precisión:\*\* Alcanza el menor rendimiento (\*\*Accuracy de 65.00%\*\* y F1-Score Macro de $0.6385$).   
 \- \*\*Eficiencia / Sesgo:\*\* Su diseño nativo orientado a 5 clases (estrellas) incrementa la dispersión al mapearse hacia un esquema binario, asignando 68 muestras a la categoría neutral.
 
-## 💡 Decisiones de Ajuste Mínimo vs. Fine-Tuning y Justificación del modelo  
+## <a name="ajuste-minimo"></a>💡 Decisiones de Ajuste Mínimo vs. Fine-Tuning y Justificación del modelo  
 ### Análisis del Umbral de Negocio  
 El umbral objetivo es del \*\*80.00% de Accuracy\*\*.   
 El modelo preentrenado líder (\*\*BETO Sentiment\*\*) alcanzó un \*\*78.33%\*\*, a \$1.67\\%\$ del objetivo.   
@@ -72,7 +72,7 @@ El modelo preentrenado líder (\*\*BETO Sentiment\*\*) alcanzó un \*\*78.33%\*\
 ### Modelo Recomendado  
 Se selecciona \*\*\`finiteautomata/beto-sentiment-analysis\` (BETO Sentiment)\*\* como el modelo principal del prototipo debido a su superioridad en precisión, calidad predictiva y alineación con el idioma español.
 
-\--- \#\# ⚠️ Umbrales, Riesgos y Plan de Mitigación   
+## <a name="riesgos"></a>⚠️ Umbrales, Riesgos y Plan de Mitigación   
 \- \*\*Riesgo 1: Muestras clasificadas erróneamente como Neutras (\`NEU\`).\*\*  
 \- \*Diagnóstico:\* Asignación de clases intermedias en modelos preentrenados binarios.  
 \- \*Mitigación:\* Calibración de umbrales probabilísticos de salida para forzar clasificación binaria en los casos requeridos.  
@@ -80,14 +80,14 @@ Se selecciona \*\*\`finiteautomata/beto-sentiment-analysis\` (BETO Sentiment)\*\
 \- \*Diagnóstico:\* Latencia de $28.78ms$ en BETO para volúmenes altos.   
 \- \*Mitigación:\* Implementación de cuantización a 8 bits (\`bitsandbytes\`) o exportación del modelo al formato ONNX Runtime.
 
-\--- \#\# 📂 Estructura del Repositorio  
+## <a name="estructura"></a>📂 Estructura del Repositorio  
 `.`  
 ├── data/              		\# Dataset de kagglehub  
 ├── notebooks/         		\# Actividad4.ipynb (Notebook ejecutable en Google Colab)  
 └── requirements.txt   		\# Lista de dependencias del entorno Python  
 ├── README.md          	\# Documentación técnica general del proyecto
 
-\--- \#\# 💻 Instrucciones de Uso e Instalación  
+## <a name="instalacion"></a>💻 Instrucciones de Uso e Instalación  
 \#\#\# 1\. Clonar el repositorio \`\`\`bash git clone https\://github.com/tu-usuario/tu-repositorio.git cd tu-repositorio \`\`\`  
 \#\#\# 2\. Instalación de dependencias \`\`\`bash pip install \-r requirements.txt \`\`\`  
 \#\#\# 3\. Ejecución en Google Colab  
